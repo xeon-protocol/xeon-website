@@ -3640,6 +3640,8 @@ ul.link {
     overflow: hidden;
     width: 100%;
     margin:1.6rem 0 0;
+    padding: 1.0rem 0;
+    box-sizing: border-box;
 }
 
 .team-section::before {
@@ -3781,6 +3783,8 @@ ul.link {
     overflow: hidden;
     background: none;
     margin-top: 1.16rem;
+    padding: 1.0rem 0;
+    box-sizing: border-box;
 }
 
 .partners-section .title-h2 {
