@@ -833,6 +833,11 @@ ul.link {
     width: 0.32rem;
     height: 0.32rem;
 }
+
+.footer-social a img {
+    width: 0.32rem;
+    height: 0.32rem;
+}
 .footer-social a svg .line {
     stroke: var(--light-purple);
     -webkit-transition: all 0.3s ease;
