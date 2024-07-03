@@ -716,13 +716,16 @@
       </h4>
       <p class="link">{ 02 }</p>
     </div>
-    <div class="text-wrapped-main vesting-chart">
-      <div class="vesting-container">
-        <h1>XEON Token Vesting Schedule</h1>
-        <canvas id="vestedTokensChart" width="600" height="600"></canvas>
-        </div>
-    </div>
-    <div class="text-wrapped" style="top: 20px;position: relative;z-index: 2;width: 80%;">
+    <div class="vesting-chart-container">
+      <h1>XEON Vesting Schedule</h1>
+      <div class="vesting-chart">
+          <div class="canvas-wrapper">
+              <canvas id="vestedTokensChart"></canvas>
+          </div>
+      </div>
+    </div>  
+  
+    <div class="text-wrapped padded-chart-links">
       <div class="text-wrapped-title">
         <h4 class="link">
           <span class="red">{</span>Sablier<span class="red">}</span>
@@ -732,6 +735,39 @@
       <div class="text-wrapped-main">
         <span class="token-article">Our tokens are vested Linear through Sablier. </span> </br>
         <span class="token-article">Dive into our tokenomics with our CTO Jon <a href="https://paragraph.xyz/@jonbray/xeon-tokenomics" target="_blank">here!</a></span>
+        <div class="tokenomics-links">
+          <a href="https://app.sablier.com/stream/LL2-1-20983" class="link" target="_blank" title="Ecosystem 14%, 4.5% Reserves">
+            Sablier Stream 1
+          </a>
+          <a href="https://app.sablier.com/stream/LL2-1-20985" class="link" target="_blank" title="Team 2%">
+            Sablier Stream 2
+          </a>
+          <a href="https://app.sablier.com/stream/LL2-1-20986" class="link" target="_blank" title="Team 1%">
+            Sablier Stream 3
+          </a>
+          <a href="https://app.sablier.com/stream/LL2-1-20984" class="link" target="_blank" title="Team 1%">
+            Sablier Stream 4
+          </a>
+          <a href="https://app.sablier.com/stream/LL2-1-20982" class="link" target="_blank" title="Team 1%">
+            Sablier Stream 5
+          </a>
+          <a href="https://app.sablier.com/stream/LD2-1-1755" class="link" target="_blank" title="KOL 0.3%">
+            Sablier Stream 6
+          </a>
+          <a href="https://app.sablier.com/stream/LL2-1-21503" class="link" target="_blank" title="KOL 0.3%">
+            Sablier Stream 7
+          </a>
+          <a href="https://app.sablier.com/stream/LL2-1-21502" class="link" target="_blank" title="KOL 0.3%">
+            Sablier Stream 7
+          </a>
+          <a href="https://medium.com/@xeonprotocol/xeon-protocol-tokenomics-vesting-0620241a2a30" class="link" target="_blank">
+            Medium Article
+          </a>
+          <a href="./images/dist/ENS/xeon-ens.png" class="link ENSlink" target="_blank">
+            <!--<img src="./images/dist/ENS/xeon-ens.png" alt="ENS">-->
+            <p>Xeon ENS Map</p>
+          </a>
+        </div>
       </div>
     </div>
   </div>
@@ -941,7 +977,7 @@ var vestedTokensChart = new Chart(ctx, {
                 fill: true
             },
             {
-                label: '0.3% Partner',
+                label: '0.6% Partners',
                 data: getFlattenedData(70, 0.005, 60),
                 borderColor: 'rgba(255, 99, 132, 1)',
                 backgroundColor: 'rgba(255, 99, 132, 0.2)',
@@ -957,7 +993,7 @@ var vestedTokensChart = new Chart(ctx, {
                 fill: true
             },
             {
-                label: '14% Ecosystem & Development',
+                label: '14% Ecosystem',
                 data: getFlattenedData(70, 0.233, 60),
                 borderColor: 'rgba(75, 192, 192, 1)',
                 backgroundColor: 'rgba(75, 192, 192, 0.2)',
@@ -965,7 +1001,7 @@ var vestedTokensChart = new Chart(ctx, {
                 fill: true
             },
             {
-                label: '4.5% Reserves',
+                label: '4.4% Reserves',
                 data: getFlattenedData(70, 0.075, 60),
                 borderColor: 'rgba(255, 215, 0, 1)', // Gold color
                 backgroundColor: 'rgba(255, 215, 0, 0.2)',
@@ -973,18 +1009,10 @@ var vestedTokensChart = new Chart(ctx, {
                 fill: true
             },
             {
-                label: '6% Marketing, Partnership & Collaborations',
+                label: '6% Marketing',
                 data: getFlattenedData(70, 0.1, 60),
                 borderColor: 'rgba(255, 159, 64, 1)',
                 backgroundColor: 'rgba(255, 159, 64, 0.2)',
-                borderWidth: 1,
-                fill: true
-            },
-            {
-                label: '0.2% Partner',
-                data: getFlattenedData(70, 0.0033, 60),
-                borderColor: 'rgba(255, 206, 86, 1)',
-                backgroundColor: 'rgba(255, 206, 86, 0.2)',
                 borderWidth: 1,
                 fill: true
             }

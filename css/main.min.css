@@ -6044,31 +6044,17 @@ button {
 .card-wrapped-main p:nth-child(2) {
     margin-top: 0.24rem;
 }
-.vesting-schedule {
+.vesting-container {
     position: relative;
     width: 100%;
     height: 100%;
-    max-width: 1200px;
-    max-height: 800px;
+    max-width: 900px;
     margin: 0 auto;
     background-repeat: no-repeat;
     background-size: 75% 75%;
     background-position: center;
-}
-.vesting-container {
-    width: 100%;
-    max-width: 900px;
+    padding-bottom: 3rem;
     text-align: center;
-}
-.vesting-container h1 {
-    font-weight: bold;
-    text-transform: uppercase;
-    text-rendering: optimizeLegibility;
-    color: var(--white);
-    font-family: var(--nippo-regular);
-    font-size: var(--font-size-h3);
-    letter-spacing: var(--letter-spacing);
-    line-height: var(--line-height-h2);
 }
 .token-article {
     color: var(--white);
@@ -6077,15 +6063,94 @@ button {
     letter-spacing: var(--letter-spacing);
     line-height: var(--line-height-p);
 }
-canvas {
-    background-color: black;
+.token-article a {
+    color : var(--pink);
+}
+.vesting-schedule {
+    background: none;
+}
+.vesting-chart-container {
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 5%;
+
+    background-image: url(../images/dist/howitworks/card-109.svg);
+    background-size: 90% 90%;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.vesting-chart-container h1 {
+    padding-inline: 0.2rem;
+    box-sizing: border-box;
+    text-transform: uppercase;
+    text-rendering: optimizeLegibility;
+    text-align: center;
+    color: var(--white);
+    font-family: var(--nippo-regular);
+    font-size: var(--font-size-h3);    
+    font-weight: bold;
+    letter-spacing: var(--letter-spacing);
+    line-height: var(--line-height-h2);
+}
+.vesting-chart {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto;
+    position: relative;
+    padding-inline: 0.2rem;
+    box-sizing: border-box;
+}
+.vesting-chart::before {
+    content: "";
+    display: block;
+    padding-top: 50%; /* Maintain a square aspect ratio */
+}
+.canvas-wrapper {
     width:100%;
     height:100%;
 }
-.vesting-chart {
+#vestedTokensChart {
     position: relative;
-    margin-top: unset !important;
-    z-index: 1;
-    max-width: 900px !important;
-    height: auto !important;
+    top: 0;
+    left: 0;
+    width: 100% !important;
+    background-color: black;
 }
+.ENSlink {
+    max-width: 120px;
+}
+.padded-chart-links {
+    position: relative;
+    max-width: 900px;
+    margin: 0 auto;
+    z-index: 2;
+    padding: 0.5rem;
+    box-sizing: border-box;
+}
+.tokenomics-links {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    margin-top: 0.1rem;
+}  
+.tokenomics-links a {
+    flex: 1 1 30%;
+    margin: 3px; 
+    text-align: center; 
+    text-decoration: none; 
+    color: #FFF; 
+    border: 1px solid #ccc; /* Add border to links */
+    padding: 2px; /* Padding inside the links */
+    box-sizing: border-box; /* Include padding and border in the element's total width and height */
+}
+/* Responsive Styles */
+@media (max-width: 768px) {
+
+}
+  
+
+
