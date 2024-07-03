@@ -6074,7 +6074,7 @@ button {
     max-width: 900px;
     margin: 0 auto;
     padding: 5%;
-
+    z-index: 10;
     background-image: url(../images/dist/howitworks/card-109.svg);
     background-size: 90% 90%;
     background-repeat: no-repeat;
@@ -6107,7 +6107,7 @@ button {
 .vesting-chart::before {
     content: "";
     display: block;
-    padding-top: 50%; /* Maintain a square aspect ratio */
+    padding-top: 50%;
 }
 .canvas-wrapper {
     width:100%;
@@ -6143,13 +6143,16 @@ button {
     text-align: center; 
     text-decoration: none; 
     color: #FFF; 
-    border: 1px solid #ccc; /* Add border to links */
-    padding: 2px; /* Padding inside the links */
-    box-sizing: border-box; /* Include padding and border in the element's total width and height */
+    border: 1px solid #ccc; 
+    padding: 2px; 
+    box-sizing: border-box;
 }
-/* Responsive Styles */
-@media (max-width: 768px) {
 
+@media (max-width: 500px) {
+
+    .vesting-chart-container h1 {
+        line-height: 1;
+    }
 }
   
 
