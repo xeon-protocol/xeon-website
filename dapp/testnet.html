@@ -51,7 +51,41 @@
 			rel="stylesheet"
 			href="css/main.min.css" />
 	</head>
+<style>
+  .video-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+  }
 
+  #missionVideo {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+
+  .play-button,
+  .pause-button {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 50px;
+    color: white;
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 50%;
+    padding: 10px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .play-button:hover,
+  .pause-button:hover {
+    background-color: rgba(0, 0, 0, 0.7);
+  }
+</style>
 	<body>
 		<!-- main start here -->
 		<div class="preloader">
@@ -198,6 +232,17 @@
 			<section
 				class="mission-section"
 				id="misson">
+<video id="missionVideo" width="100%" height="100%">
+        <source src="images/dist/xeon.mp4" type="video/mp4">
+      </video>
+      <div class="play-button" id="playButton">
+        <img src="images/dist/play.png" alt="">
+      </div>
+      <div class="pause-button" id="pauseButton" style="display: none;">
+        <img src="images/dist/pause.png" alt="">
+      </div>
+    </section>
+				
 				<div class="container"> </div>
 				<div class="section-decor">
 					<img
@@ -449,6 +494,55 @@
 		</main>
 
 		<canvas class="noise"></canvas>
+<script>document.addEventListener('DOMContentLoaded', function () {
+      const video = document.getElementById('missionVideo');
+      const playButton = document.getElementById('playButton');
+      const pauseButton = document.getElementById('pauseButton');
+
+      function showButtons() {
+        if (video.paused) {
+          playButton.style.display = 'flex';
+          pauseButton.style.display = 'none';
+        } else {
+          playButton.style.display = 'none';
+          pauseButton.style.display = 'flex';
+        }
+      }
+
+      function hideButtons() {
+        playButton.style.display = 'none';
+        pauseButton.style.display = 'none';
+      }
+
+      if (video && playButton && pauseButton) {
+        playButton.addEventListener('click', function () {
+          video.play();
+          hideButtons();
+        });
+
+        pauseButton.addEventListener('click', function () {
+          video.pause();
+          showButtons();
+        });
+
+        video.addEventListener('pause', function () {
+          showButtons();
+        });
+
+        video.addEventListener('play', function () {
+          hideButtons();
+        });
+
+        video.addEventListener('mouseenter', showButtons);
+        video.addEventListener('mouseleave', hideButtons);
+
+        playButton.addEventListener('mouseenter', showButtons);
+        playButton.addEventListener('mouseleave', hideButtons);
+        pauseButton.addEventListener('mouseenter', showButtons);
+        pauseButton.addEventListener('mouseleave', hideButtons);
+      }
+    });
+  </script>
 		<script
 			src="https://code.jquery.com/jquery-3.7.1.min.js"
 			integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
