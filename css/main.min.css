@@ -1590,6 +1590,9 @@ ul.link {
     padding-top: 1.08rem;
     height: 100vh;
 }
+.galxe-main {
+    height: auto !important;
+}  
 .ecosystem-main-top {
     padding: 0 0.24rem 0 0.3rem;
     width: 100%;
@@ -1603,7 +1606,7 @@ ul.link {
     -ms-flex-align: start;
     align-items: flex-start;
 }
-.ecosystem-main-top-text {
+.ecosystem-main-top-text, .galxe-main-top-text {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -1618,7 +1621,7 @@ ul.link {
     position: relative;
     margin-top: 0.07rem;
 }
-.ecosystem-main-top-text br {
+.ecosystem-main-top-text br, .galxe-main-top-text br {
     display: none;
 }
 .ecosystem-main-top-git {

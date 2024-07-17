@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>React Example</title>
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/react/16.13.1/umd/react.production.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/16.13.1/umd/react-dom.production.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.1.0/anime.min.js"></script>
+  <style>
+    :root {
+        --scale: 1.5
+        --y: 0;
+        overflow: hidden;
+    }
+    :root body {
+        margin: 0;
+        background-color: black;
+        outline: none;
+        border: none;
+    }
+    #wrapper {
+      position: relative;
+      width: 100%;
+      height: 100vh;
+      overflow: hidden;
+    }
+    #image {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      object-fit: cover; /* Ensures the image covers the container */
+    }
+    :root body #wrapper #image {
+      width: 100vw;
+      height: 100vh;
+      background-image: url("https://images.unsplash.com/photo-1539035104074-dee66086b5e3?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjI0MX0&auto=format&fit=crop&w=2550&q=80");
+      background-size: cover;
+      transform: translateX(var(--x)) translateY(var(--y)) scale(var(--scale));
+      transition: ease-out 0.7s;
+    }
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+  <script>
+    function _defineProperty(obj, key, value) {
+      if (key in obj) {
+        Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });
+      } else {
+        obj[key] = value;
+      }
+      return obj;
+    }
+
+    class App extends React.Component {
+      constructor(...args) {
+        super(...args);
+        _defineProperty(this, "handleMouseMove",
+          e => {
+            const el = document.getElementById("wrapper");
+            const d = el.getBoundingClientRect();
+            let x = e.clientX - (d.left + Math.floor(d.width / 2));
+            let y = e.clientY - (d.top + Math.floor(d.height / 2));
+            // Invert values
+            x = x - x * 2;
+            y = y - y * 2;
+            document.documentElement.style.setProperty("--scale", 1.6);
+            document.documentElement.style.setProperty("--x", x / 2 + "px");
+            document.documentElement.style.setProperty("--y", y / 2 + "px");
+          }
+        );
+        _defineProperty(this, "handleMouseLeave",
+          () => {
+            document.documentElement.style.setProperty("--scale", 1);
+            document.documentElement.style.setProperty("--x", 0);
+            document.documentElement.style.setProperty("--y", 0);
+          }
+        );
+      }
+
+      render() {
+        return (
+          React.createElement("div", {
+            id: "wrapper",
+            onMouseMove: this.handleMouseMove,
+            onClick: this.handleMouseLeave
+          },
+            React.createElement("img", { id: "image", src: "your-image-url-here", alt: "description" })
+          )
+        );
+      }
+    }
+
+    ReactDOM.render(
+      React.createElement(App, null),
+      document.getElementById("root")
+    );
+  </script>
+  
+</body>
+</html>
