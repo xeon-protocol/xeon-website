@@ -940,6 +940,8 @@
       background-size: cover;
       transform: translateX(var(--x)) translateY(var(--y)) scale(var(--scale));
       transition: ease-out 0.7s;
+      outline: none;
+        border: none;
     }
     .galxe-main-animation-hearth {
       bottom: 0;
@@ -1073,7 +1075,7 @@
           onMouseMove: this.handleMouseMove,
           onMouseLeave: this.handleMouseLeave
         },
-            React.createElement("img", { id: "image", src: "your-image-url-here?cache-bust=" + new Date().getTime(), alt: "" })
+            React.createElement("img", { id: "image", src: "https://images.unsplash.com/photo-1539035104074-dee66086b5e3?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjI0MX0&auto=format&fit=crop&w=2550&q=80?cache-bust=" + new Date().getTime(), alt: "" })
         )
       );
     }
