@@ -983,7 +983,7 @@
       }
       .galxe-main-navigation {
         position: absolute;
-        bottom: 140vh;
+        bottom: 130vh;
         right:0;
         margin: unset;
         z-index: 3;
@@ -1073,7 +1073,7 @@
           onMouseMove: this.handleMouseMove,
           onMouseLeave: this.handleMouseLeave
         },
-          React.createElement("img", { id: "image", src: "your-image-url-here", alt: "description" })
+            React.createElement("img", { id: "image", src: "your-image-url-here?cache-bust=" + new Date().getTime(), alt: "" })
         )
       );
     }
