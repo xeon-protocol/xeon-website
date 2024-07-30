@@ -42,6 +42,16 @@ Install all dependencies:
 npm install
 ```
 
+This repository uses a submodule for the dapp code. Run the following commands to initialize and update the submodule containing dapp code:
+
+```bash
+# initialize `xeon-dapp` repo
+git submodule update --init --recursive
+
+# to pull in updates from the `xeon-dapp` repo
+git submodule update --remote
+```
+
 To update the changelog with recent changes or version updates:
 
 ```sh
