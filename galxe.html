@@ -823,8 +823,8 @@
     @media all and (max-width: 515px) {
       :root body #wrapper #image {
 
-        transform: none !important;
-        transition: none !important;
+        width: 100% !important;
+        height: 60vh !important;
       }
 
       .text-wrapped {
@@ -932,11 +932,6 @@
       });
     }
 
-    if (!isMobile) {
-      // Only add the mouse move events if not on mobile
-      document.getElementById("wrapper").addEventListener("mousemove", handleMouseMove);
-      document.getElementById("wrapper").addEventListener("mouseleave", handleMouseLeave);
-    }
     class App extends React.Component {
       constructor(...args) {
         super(...args);
