@@ -816,7 +816,37 @@
       top: 0.9rem;
     }
 
-    /* media query for small screens */
+    .text-wrapped.hidden {
+      opacity: 0;
+    }
+
+    @media all and (max-width: 515px) {
+      :root body #wrapper #image {
+
+        transform: none !important;
+        transition: none !important;
+      }
+
+      .text-wrapped {
+        display: none;
+        /* Hide all by default */
+      }
+
+      .text-wrapped.active {
+        display: block;
+        /* Show only the active one */
+        opacity: 1;
+        /* Ensure it's fully visible */
+      }
+
+      /* Disable any other movements or animations */
+      .galxe-main-navigation,
+      .galxe-main-bottom-right .text-wrapped,
+      .galxe-main-bottom-right .text-wrapped-main {
+        transform: none !important;
+        transition: none !important;
+      }
+    }
 
     @media all and (max-width: 515px) {
       :root body #wrapper #image {
@@ -829,8 +859,8 @@
 
       .galxe-main-navigation {
         position: absolute;
-        bottom: 130vh;
-        right: 0;
+        bottom: 70vh;
+        right: 35%;
         margin: unset;
         z-index: 3;
       }
@@ -873,7 +903,40 @@
       }
       return obj;
     }
+    const isMobile = window.innerWidth <= 515;
+    if (isMobile) {
+      function setActiveElement(index) {
+        const elements = document.querySelectorAll('.text-wrapped');
 
+        elements.forEach((el, i) => {
+          if (i === index) {
+            el.classList.add('active');
+            el.classList.remove('hidden');
+          } else {
+            el.classList.remove('active');
+            el.classList.add('hidden');
+          }
+        });
+      }
+      setActiveElement(0);
+
+
+      document.querySelector('.next').addEventListener('click', () => {
+        const currentIndex = [...document.querySelectorAll('.text-wrapped')].findIndex(el => el.classList.contains('active'));
+        setActiveElement((currentIndex + 1) % document.querySelectorAll('.text-wrapped').length);
+      });
+
+      document.querySelector('.prev').addEventListener('click', () => {
+        const currentIndex = [...document.querySelectorAll('.text-wrapped')].findIndex(el => el.classList.contains('active'));
+        setActiveElement((currentIndex - 1 + document.querySelectorAll('.text-wrapped').length) % document.querySelectorAll('.text-wrapped').length);
+      });
+    }
+
+    if (!isMobile) {
+      // Only add the mouse move events if not on mobile
+      document.getElementById("wrapper").addEventListener("mousemove", handleMouseMove);
+      document.getElementById("wrapper").addEventListener("mouseleave", handleMouseLeave);
+    }
     class App extends React.Component {
       constructor(...args) {
         super(...args);
