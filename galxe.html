@@ -826,6 +826,8 @@
       </div>
     </div>
 
+
+
     <section class="ecosystem-main galxe-main" id="hero">
       <div class="ecosystem-main-top">
         <h1>Galxe <span>Quests</span></h1>
@@ -850,7 +852,22 @@
           </div>
         </div>
       </div>
+      <div class="leaderboard-container">
+        <table class="leaderboard-table">
+          <thead>
+            <tr>
+              <th>Ranking</th>
+              <th>User</th>
+              <th>Points</th>
+              <th>Twitter</th>
+              <th>Discord</th>
+            </tr>
+          </thead>
+          <tbody>
 
+          </tbody>
+        </table>
+      </div>
 
       <lottie-player loop mode="normal" data-src-desctop="../assets/lottie/3planets_desktop.json"
         data-src-tablet="../assets/lottie/3planets_tablet.json" data-src-mobile="../assets/lottie/3planets_mobile.json"
@@ -1679,6 +1696,30 @@
       opacity: 0;
     }
 
+    .avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      margin-right: 8px;
+    }
+
+    th {
+      color: white;
+      font-weight: 500;
+    }
+
+    .table-data {
+      display: flex;
+      align-items: center;
+
+    }
+
+    .leaderboard-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 120px;
+    }
+
     @media all and (max-width: 515px) {
       :root body #wrapper #image {
 
@@ -1775,10 +1816,185 @@
         z-index: 2;
       }
     }
+
+    th {
+      text-align: left;
+      font-weight: 500;
+      margin-bottom: 10px;
+      border-bottom: 1px solid rgb(90, 90, 90);
+      padding-bottom: 10px;
+    }
+
+    td {
+      padding: 10px;
+      color: white;
+    }
+
+    .socials {
+      width: 20px;
+      height: 20px;
+    }
+
+    .leaderboard-container {
+      width: 80%;
+    }
   </style>
+
+  <script src="https://cdn.jsdelivr.net/npm/ethereum-blockies@0.1.1/blockies.min.js"></script>
 
 
   <script>
+    const fetchLeaderboardData = async () => {
+      const query = `
+    query SpaceLeaderboard(
+      $id: Int!
+      $first: Int
+      $after: String
+      $order: LoyaltyPointsRankOrder
+      $seasonId: Int
+    ) {
+      space(id: $id) {
+        id
+        name
+        loyaltyPointsRanks(
+          first: $first
+          after: $after
+          order: $order
+          sprintId: $seasonId
+        ) {
+          pageInfo {
+            startCursor
+            endCursor
+            hasNextPage
+            hasPreviousPage
+          }
+          totalCount
+          list {
+            id
+            rank
+            points
+            address {
+              username
+              id
+              avatar
+              address
+            }
+          }
+        }
+      }
+    }
+  `;
+
+      const variables = {
+        id: 69692,
+        first: 100,
+        after: "-1",
+        order: "Points",
+        seasonId: null
+      };
+
+      const response = await fetch('https://graphigo.prd.galaxy.eco/query', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Origin': 'https://dashboard.galxe.com',
+        },
+        body: JSON.stringify({
+          query,
+          variables,
+        }),
+      });
+
+      const data = await response.json();
+
+      return data.data.space.loyaltyPointsRanks.list;
+    };
+
+    fetchLeaderboardData().then(async (edges) => {
+      const tbody = document.querySelector('.leaderboard-table tbody');
+      tbody.innerHTML = '';
+
+      for (const entry of edges) {
+        const row = document.createElement('tr');
+
+        let avatarUrl = entry.address.avatar;
+        try {
+          const avatarResponse = await fetch(avatarUrl);
+          if (!avatarResponse.ok) {
+            // If the avatar URL is not valid, generate a Blockies image
+            const blockie = blockies.create({
+              seed: entry.address.address.toLowerCase(), // Use the Ethereum address as the seed
+              size: 8, // Size of the blockies image
+              scale: 4, // Scale the image
+            }).toDataURL();
+
+            avatarUrl = blockie;
+          }
+        } catch (error) {
+          // In case of errors, generate a Blockies image
+          const blockie = blockies.create({
+            seed: entry.address.address.toLowerCase(),
+            size: 8,
+            scale: 4,
+          }).toDataURL();
+
+          avatarUrl = blockie;
+        }
+
+        row.innerHTML = `
+          <td>${entry.rank}</td>
+          <td class="table-data">
+            <img src="${avatarUrl}" class="avatar" />
+            ${entry.address.username}
+          </td>
+          <td>${entry.points}</td>
+          <td> <a  href="#" target="_blank">
+            <svg class="socials" viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M9 1V1C4.58172 1 1 4.58172 1 9V25C1 29.4183 4.58172 33 9 33V33M25 1V1C29.4183 1 33 4.58172 33 9V25C33 29.4183 29.4183 33 25 33V33"
+                class="line" />
+              <g clip-path="url(#clip0_10_14)">
+                <path
+                  d="M21.5867 10H24.04L18.6533 15.941L24.9467 24H20.008L16.1413 19.1026L11.7147 24H9.26133L14.968 17.6458L8.94133 10H14.0027L17.496 14.4738L21.5867 10ZM20.728 22.6052H22.088L13.288 11.3432H11.8267L20.728 22.6052Z"
+                  fill="#F2F2F2" />
+              </g>
+              <defs>
+                <clipPath id="clip0_10_14">
+                  <rect width="16" height="14" fill="white" transform="translate(9 10)" />
+                </clipPath>
+              </defs>
+            </svg>
+          </a></td>
+          <td><a class="socials" href="#" target="_blank">
+           <svg class="socials" viewBox="0 -28.5 256 256" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" 
+           preserveAspectRatio="xMidYMid" fill="#000000"><g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+            <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+            <g id="SVGRepo_iconCarrier"> <g> 
+              <path d="M216.856339,16.5966031 C200.285002,8.84328665 
+              182.566144,3.2084988 164.041564,0 C161.766523,4.11318106 159.108624,9.64549908 
+              157.276099,14.0464379 C137.583995,11.0849896 118.072967,11.0849896 98.7430163,14.0464379 
+              C96.9108417,9.64549908 94.1925838,4.11318106 91.8971895,0 C73.3526068,3.2084988 55.6133949,8.86399117 
+              39.0420583,16.6376612 C5.61752293,67.146514 -3.4433191,116.400813 1.08711069,164.955721 C23.2560196,181.510915 
+              44.7403634,191.567697 65.8621325,198.148576 C71.0772151,190.971126 75.7283628,183.341335 79.7352139,175.300261 
+              C72.104019,172.400575 64.7949724,168.822202 57.8887866,164.667963 C59.7209612,163.310589 61.5131304,161.891452 
+              63.2445898,160.431257 C105.36741,180.133187 151.134928,180.133187 192.754523,160.431257 C194.506336,161.891452 
+              196.298154,163.310589 198.110326,164.667963 C191.183787,168.842556 183.854737,172.420929 176.223542,175.320965 
+              C180.230393,183.341335 184.861538,190.991831 190.096624,198.16893 C211.238746,191.588051 232.743023,181.531619 
+              254.911949,164.955721 C260.227747,108.668201 245.831087,59.8662432 216.856339,16.5966031 Z M85.4738752,135.09489 
+              C72.8290281,135.09489 62.4592217,123.290155 62.4592217,108.914901 C62.4592217,94.5396472 72.607595,82.7145587 
+              85.4738752,82.7145587 C98.3405064,82.7145587 108.709962,94.5189427 108.488529,108.914901 C108.508531,123.290155 
+              98.3405064,135.09489 85.4738752,135.09489 Z M170.525237,135.09489 C157.88039,135.09489 147.510584,123.290155 
+              147.510584,108.914901 C147.510584,94.5396472 157.658606,82.7145587 170.525237,82.7145587 C183.391518,82.7145587 
+              193.761324,94.5189427 193.539891,108.914901 C193.539891,123.290155 183.391518,135.09489 170.525237,135.09489 Z" fill="#ffffff" fill-rule="nonzero"> </path> </g> </g></svg>
+          </a></td>
+        `;
+        tbody.appendChild(row);
+      }
+    });
+
+
+
+
     function _defineProperty(obj, key, value) {
       if (key in obj) {
         Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });
@@ -1815,6 +2031,7 @@
         setActiveElement((currentIndex - 1 + document.querySelectorAll('.text-wrapped').length) % document.querySelectorAll('.text-wrapped').length);
       });
     }
+
 
     class App extends React.Component {
       constructor(...args) {
