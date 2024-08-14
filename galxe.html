@@ -1008,11 +1008,10 @@
         seasonId: null
       };
 
-      const response = await fetch('https://graphigo.prd.galaxy.eco/query', {
+      const response = await fetch('/api/proxy/query', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Origin': 'https://dashboard.galxe.com',
         },
         body: JSON.stringify({
           query,
@@ -1024,6 +1023,7 @@
 
       return data.data.space.loyaltyPointsRanks.list;
     };
+
 
     fetchLeaderboardData().then(async (edges) => {
 
